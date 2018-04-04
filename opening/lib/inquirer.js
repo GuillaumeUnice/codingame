@@ -1,6 +1,6 @@
 const inquirer   = require('inquirer');
-const files      = require('./files');
 
+const MAX_SEASON = 4
 module.exports = {
 
   askRequiredInformation: () => {
@@ -10,7 +10,7 @@ module.exports = {
         type: 'input',
         message: 'Enter the Season number:',
         validate: function( value ) {
-          if (typeof value === "number") {
+          if (+value > 0 && +value < MAX_SEASON) {
             return true;
           } else {
             return 'Please enter a number!';
@@ -22,7 +22,7 @@ module.exports = {
         type: 'input',
         message: 'Enter the Episode number:',
         validate: function(value) {
-          if (typeof value === "number") {
+          if (+value > 0 && +value < MAX_SEASON) {
             return true;
           } else {
             return 'Please enter a number!';
@@ -41,6 +41,17 @@ module.exports = {
             return 'Please enter a string!';
           }
         }
+      }
+    ];
+    return inquirer.prompt(questions);
+  },
+
+  confirmation: () => {
+    const questions = [
+      {
+        name: 'confirmation',
+        type: 'confirm',
+        message: 'Press any Enter to continue...'
       }
     ];
     return inquirer.prompt(questions);
